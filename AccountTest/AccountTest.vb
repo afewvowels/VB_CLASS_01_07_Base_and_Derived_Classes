@@ -56,8 +56,7 @@ Public Class AccountTest
                 objCheckingAccount.Withdraw(WithdrawalAmountDecimal)
             End If
         Catch ex As ArgumentOutOfRangeException
-            MessageBox.Show("Withdrawal amount must be greater than 0 " &
-               "and less than or equal to the account balance.",
+            MessageBox.Show(ex.Message,
                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

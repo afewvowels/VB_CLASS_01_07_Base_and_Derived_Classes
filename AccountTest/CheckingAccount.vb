@@ -2,6 +2,9 @@
     ' Brings constructors, properties, and methods from the base class 'Account'
     Inherits Account
 
+    ' Constant service charge
+    Const SERVICE_CHARGE_DECIMAL As Decimal = 25D
+
     ' Overload the constructor, provide data for base class constructor
     ' Base constructor creates account with fixed amount: $100
     Public Sub New()
@@ -16,7 +19,8 @@
     ' Override the Withdraw method and provide balance checking logic
     Public Overrides Sub Withdraw(inWithdrawalAmountDecimal As Decimal)
         If (inWithdrawalAmountDecimal >= MyBase.Balance) Then
-            Throw New ArgumentOutOfRangeException("Withdrawl amount is greater than account balance.")
+            MyBase.Withdraw(SERVICE_CHARGE_DECIMAL)
+            Throw New ArgumentOutOfRangeException("Withdrawal amount is greater than account balance, service fee assessed.")
         Else
             MyBase.Withdraw(inWithdrawalAmountDecimal)
         End If

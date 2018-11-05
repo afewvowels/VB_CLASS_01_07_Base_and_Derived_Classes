@@ -37,7 +37,7 @@ Public Class Account
     ' deposit money to the account
     Public Sub Deposit(inDepositAmountDecimal As Decimal)
         ' if depositAmount is less than or equal to 0, throw an exception
-        If inDepositAmountDecimal <= 0D Then
+        If Not IsValidAmount(inDepositAmountDecimal) Then
             Throw New ArgumentOutOfRangeException(
                "Deposit amount must be positive.")
         End If
@@ -47,13 +47,23 @@ Public Class Account
 
     ' withdraw money from the account
     Public Overridable Sub Withdraw(inWithdrawalAmountDecimal As Decimal)
-        If inWithdrawalAmountDecimal <= 0D Then
+        If Not IsValidAmount(inWithdrawalAmountDecimal) Then
             Throw New ArgumentOutOfRangeException(
-               "Withrawal amount must be positive.")
+                "Withdrawal amount must be positive.")
         End If
 
         ' subtract withdrawalAmount from balanceValue
         BalanceDecimal -= inWithdrawalAmountDecimal
     End Sub ' Withdraw
+
+    Protected Function IsValidAmount(ByVal inAmountDecimal As Decimal) As Boolean
+        ' If amount is less than 0, return false, not valid amount
+        If inAmountDecimal <= 0D Then
+            Return False
+        End If
+
+        ' Otherwise amount is valid, return true
+        Return True
+    End Function
 
 End Class ' Account
